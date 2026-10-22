@@ -5,6 +5,7 @@ import joblib
 import numpy as np
 import pandas as pd
 import streamlit as st
+import streamlit.components.v1 as components
 from xgboost import XGBClassifier
 
 # ---------------------------------------------------------
@@ -112,6 +113,19 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
+
+# Force left-to-right so slider dots aren't mirrored in RTL browser profiles
+components.html("""
+<script>
+  const d = window.parent.document;
+  const fix = () => {
+    d.documentElement.setAttribute('dir', 'ltr');
+    d.body.setAttribute('dir', 'ltr');
+  };
+  fix();
+  new MutationObserver(fix).observe(d.documentElement, {attributes: true, attributeFilter: ['dir']});
+</script>
+""", height=0)
 
 # ---------------------------------------------------------
 # Model Loading & Caching
