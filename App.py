@@ -20,170 +20,239 @@ st.set_page_config(
 st.markdown(
     """
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;500;600;700&display=swap');
 
 :root {
-    --bg: #0b1020;
-    --panel: #121a30;
-    --panel-2: #18223c;
-    --border: rgba(148, 163, 184, 0.16);
-    --text: #e2e8f0;
-    --muted: #94a3b8;
-    --brand: #818cf8;
-    --good: #34d399;
-    --warn: #fbbf24;
-    --bad: #f87171;
+    --navy: #10265d;
+    --navy-2: #1b3a82;
+    --navy-deep: #0a1a45;
+    --bg: #eff3f4;
+    --card: #ffffff;
+    --border: rgba(16, 38, 93, 0.12);
+    --muted: #5f6f91;
+    --good: #1f9d6b;
+    --warn: #d98a0b;
+    --bad: #d64545;
+    --display: 'Bebas Neue', 'Oswald', 'Arial Narrow', Impact, sans-serif;
 }
 
+/* ---------- Base ---------- */
 .stApp, .stApp h1, .stApp h2, .stApp h3, .stApp h4, .stApp p,
 .stApp label, .stApp input, .stApp textarea, .stApp button {
-    font-family: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+    font-family: 'Poppins', -apple-system, 'Segoe UI', sans-serif;
 }
-
+.stApp {
+    color: var(--navy);
+    background:
+        linear-gradient(112deg, transparent 0 58%, rgba(255, 255, 255, 0.85) 58% 58.12%, transparent 58.12% 100%),
+        linear-gradient(68deg, transparent 0 27%, rgba(255, 255, 255, 0.75) 27% 27.1%, transparent 27.1% 100%),
+        linear-gradient(24deg, transparent 0 72%, rgba(255, 255, 255, 0.7) 72% 72.1%, transparent 72.1% 100%),
+        linear-gradient(180deg, #f6f8fa 0%, #e9eef1 100%);
+}
+[data-testid="stAppViewContainer"], [data-testid="stHeader"] { background: transparent; }
 .block-container { padding-top: 2.4rem; max-width: 1400px; }
 footer { visibility: hidden; }
 
 /* ---------- Sidebar ---------- */
 [data-testid="stSidebar"] {
-    background: #0e1428;
-    border-right: 1px solid var(--border);
+    background:
+        repeating-radial-gradient(circle at 0% 0%, transparent 0 20px, rgba(255, 255, 255, 0.08) 20px 30px) top left / 100% 200px no-repeat,
+        radial-gradient(circle at 0% 100%, rgba(255, 255, 255, 0.09) 0 170px, transparent 171px),
+        var(--navy);
+    border-right: 0;
 }
+[data-testid="stSidebarContent"] { background: transparent; }
+[data-testid="stSidebar"] :is(p, label, span, small, li, h1, h2, h3, div) { color: #fff; }
+[data-testid="stSidebar"] [data-baseweb="select"] > div {
+    background: var(--navy-2); border-color: rgba(255, 255, 255, 0.25); border-radius: 10px;
+}
+[data-testid="stSidebar"] hr { border-color: rgba(255, 255, 255, 0.15); }
+[data-testid="stSidebar"] [data-testid="stCaptionContainer"] * { color: #b9c6e6; }
+[data-testid="stSidebar"] [data-testid^="stBaseButton"] {
+    background: transparent; border: 1.5px solid rgba(255, 255, 255, 0.55); color: #fff;
+    border-radius: 12px; font-weight: 600;
+}
+[data-testid="stSidebar"] [data-testid^="stBaseButton"]:hover { background: #fff; color: var(--navy); border-color: #fff; }
+[data-testid="stSidebar"] [data-testid^="stBaseButton"]:hover * { color: var(--navy); }
+
 .brand { display: flex; align-items: center; gap: 12px; margin: 4px 0 18px; }
 .brand-logo {
-    width: 44px; height: 44px; border-radius: 12px;
-    background: linear-gradient(135deg, #6366f1, #a855f7);
-    display: grid; place-items: center; font-size: 1.4rem;
-    box-shadow: 0 6px 18px rgba(99, 102, 241, 0.4);
+    width: 46px; height: 46px; border-radius: 14px; background: #fff; color: var(--navy);
+    display: grid; place-items: center; font-size: 1.5rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
-.brand-name { font-weight: 800; font-size: 1.1rem; color: #fff; line-height: 1.1; }
-.brand-sub { font-size: 0.75rem; color: var(--muted); }
+.brand-name { font-family: var(--display); font-size: 1.7rem; letter-spacing: 0.04em; line-height: 1; color: #fff; }
+.brand-sub { font-size: 0.72rem; color: #b9c6e6 !important; letter-spacing: 0.04em; }
 .side-label {
-    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em;
-    text-transform: uppercase; color: var(--muted); margin: 18px 0 6px;
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: #9fb0da !important; margin: 20px 0 6px;
 }
 .pill {
-    display: flex; align-items: center; gap: 8px;
-    padding: 8px 12px; border-radius: 10px; margin-bottom: 6px;
-    font-size: 0.85rem; font-weight: 500;
+    display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 10px;
+    margin-bottom: 6px; font-size: 0.84rem; font-weight: 500;
 }
 .pill .dot { width: 8px; height: 8px; border-radius: 50%; }
-.pill-ok { background: rgba(52, 211, 153, 0.1); color: #6ee7b7; border: 1px solid rgba(52, 211, 153, 0.25); }
-.pill-ok .dot { background: var(--good); box-shadow: 0 0 8px var(--good); }
-.pill-err { background: rgba(248, 113, 113, 0.1); color: #fca5a5; border: 1px solid rgba(248, 113, 113, 0.25); }
-.pill-err .dot { background: var(--bad); }
+.pill-ok { background: rgba(74, 222, 155, 0.12); border: 1px solid rgba(74, 222, 155, 0.35); }
+.pill-ok, .pill-ok * { color: #9af2c8 !important; }
+.pill-ok .dot { background: #4ade9b; box-shadow: 0 0 8px #4ade9b; }
+.pill-err { background: rgba(255, 122, 122, 0.12); border: 1px solid rgba(255, 122, 122, 0.35); }
+.pill-err, .pill-err * { color: #ffb4b4 !important; }
+.pill-err .dot { background: #ff7a7a; }
 
 /* ---------- Hero ---------- */
 .hero {
-    position: relative; overflow: hidden;
-    background:
-        radial-gradient(900px 260px at 0% 0%, rgba(129, 140, 248, 0.30), transparent 60%),
-        radial-gradient(600px 240px at 100% 100%, rgba(168, 85, 247, 0.20), transparent 60%),
-        linear-gradient(135deg, #111936 0%, #0d1329 100%);
-    border: 1px solid var(--border); border-radius: 20px;
-    padding: 28px 32px; margin-bottom: 24px;
+    position: relative; overflow: hidden; border-radius: 22px; padding: 34px 38px; margin-bottom: 26px;
+    background: linear-gradient(135deg, #14306f 0%, var(--navy) 55%, var(--navy-deep) 100%);
+    box-shadow: 0 24px 50px -24px rgba(16, 38, 93, 0.75);
 }
-.hero-title { font-size: 2rem; font-weight: 800; color: #fff; letter-spacing: -0.02em; margin-bottom: 6px; }
-.hero-sub { color: #aab4c8; font-size: 1rem; margin-bottom: 16px; max-width: 760px; }
+.hero::before {
+    content: ""; position: absolute; right: -80px; top: -100px; width: 340px; height: 340px; border-radius: 50%;
+    background: repeating-radial-gradient(circle, transparent 0 20px, rgba(255, 255, 255, 0.09) 20px 34px);
+}
+.hero::after {
+    content: ""; position: absolute; right: 90px; bottom: -150px; width: 260px; height: 260px;
+    border-radius: 50%; background: rgba(255, 255, 255, 0.06);
+}
+.hero > * { position: relative; z-index: 1; }
+.hero-title { font-family: var(--display); font-size: 3.4rem; line-height: 1; color: #fff; letter-spacing: 0.03em; margin-bottom: 10px; }
+.hero-sub { color: #c9d4ee; font-size: 1rem; margin-bottom: 18px; max-width: 700px; }
 .chip {
-    display: inline-block; padding: 4px 12px; margin: 0 8px 6px 0;
-    border-radius: 999px; font-size: 0.76rem; font-weight: 600;
-    background: rgba(129, 140, 248, 0.14); color: #c7d2fe;
-    border: 1px solid rgba(129, 140, 248, 0.3);
+    display: inline-block; padding: 5px 14px; margin: 0 8px 6px 0; border-radius: 999px;
+    font-size: 0.75rem; font-weight: 500; color: #fff;
+    background: rgba(255, 255, 255, 0.10); border: 1px solid rgba(255, 255, 255, 0.28);
 }
 
-/* ---------- Section titles ---------- */
-.sec { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.02rem; color: #fff; margin: 6px 0 12px; }
+/* ---------- Titles ---------- */
+.page-title { font-family: var(--display); font-size: 2.3rem; letter-spacing: 0.03em; color: var(--navy); line-height: 1.05; margin: 0 0 2px; }
+.page-sub { color: var(--muted); margin-bottom: 20px; font-size: 0.95rem; }
+.sec {
+    display: flex; align-items: center; gap: 12px; font-family: var(--display);
+    font-size: 1.55rem; letter-spacing: 0.04em; color: var(--navy); margin: 8px 0 12px; text-transform: uppercase;
+}
 .sec .n {
-    width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center;
-    background: linear-gradient(135deg, #6366f1, #8b5cf6); font-size: 0.8rem; color: #fff;
+    min-width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center;
+    background: var(--navy); font-family: 'Poppins', sans-serif; font-size: 0.82rem; font-weight: 600; color: #fff; letter-spacing: 0;
 }
-.page-title { font-size: 1.5rem; font-weight: 800; color: #fff; margin: 0 0 4px; }
-.page-sub { color: var(--muted); margin-bottom: 18px; }
 
-/* ---------- KPI tiles ---------- */
+/* ---------- Cards ---------- */
+[data-testid="stForm"] {
+    background: var(--card); border: 1px solid var(--border); border-radius: 22px; padding: 26px 28px;
+    box-shadow: 0 18px 44px -26px rgba(16, 38, 93, 0.45);
+}
 .kpi {
-    background: var(--panel); border: 1px solid var(--border);
-    border-top: 3px solid var(--accent, var(--brand));
-    border-radius: 16px; padding: 18px 20px; height: 100%;
+    background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 18px 20px; height: 100%;
+    position: relative; overflow: hidden; box-shadow: 0 14px 34px -24px rgba(16, 38, 93, 0.5);
 }
-.kpi .lbl { font-size: 0.74rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
-.kpi .val { font-size: 1.9rem; font-weight: 800; color: var(--accent, #fff); margin-top: 4px; line-height: 1.15; }
-.kpi .sub { font-size: 0.82rem; color: var(--muted); margin-top: 2px; }
-
-/* ---------- Stacked risk bar ---------- */
-.panel { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 18px 20px; }
-.stack { display: flex; height: 14px; border-radius: 999px; overflow: hidden; background: rgba(255, 255, 255, 0.06); margin: 10px 0 12px; }
-.legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 0.85rem; color: var(--muted); }
+.kpi::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: var(--accent, var(--navy)); }
+.kpi .lbl { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.kpi .val { font-family: var(--display); font-size: 2.7rem; line-height: 1.05; color: var(--accent, var(--navy)); margin-top: 2px; letter-spacing: 0.02em; }
+.kpi .sub { font-size: 0.8rem; color: var(--muted); }
+.panel {
+    background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 20px 22px;
+    box-shadow: 0 14px 34px -24px rgba(16, 38, 93, 0.5);
+}
+.stack { display: flex; height: 14px; border-radius: 999px; overflow: hidden; background: rgba(16, 38, 93, 0.08); margin: 12px 0 14px; }
+.legend { display: flex; gap: 20px; flex-wrap: wrap; font-size: 0.85rem; color: var(--muted); }
 .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; }
+.legend b { color: var(--navy); }
 
-/* ---------- Result panel ---------- */
+/* ---------- Result card (navy) ---------- */
 .result {
-    background: linear-gradient(160deg, var(--panel-2), var(--panel));
-    border: 1px solid var(--accent); border-radius: 20px; padding: 24px;
-    box-shadow: 0 10px 40px -12px var(--accent);
+    position: relative; overflow: hidden; border-radius: 24px; padding: 28px; color: #fff;
+    border-top: 5px solid var(--accent);
+    background: linear-gradient(160deg, #16337a 0%, var(--navy) 55%, var(--navy-deep) 100%);
+    box-shadow: 0 28px 56px -26px rgba(16, 38, 93, 0.85);
 }
+.result::before {
+    content: ""; position: absolute; right: -70px; top: -90px; width: 250px; height: 250px; border-radius: 50%;
+    background: repeating-radial-gradient(circle, transparent 0 16px, rgba(255, 255, 255, 0.07) 16px 27px);
+}
+.result > * { position: relative; z-index: 1; }
 .result-top { display: flex; gap: 22px; align-items: center; flex-wrap: wrap; }
 .gauge {
-    width: 150px; height: 150px; border-radius: 50%; flex: none;
-    background: conic-gradient(var(--c) calc(var(--p) * 1%), rgba(255, 255, 255, 0.08) 0);
-    display: grid; place-items: center;
+    width: 152px; height: 152px; border-radius: 50%; flex: none; display: grid; place-items: center;
+    background: conic-gradient(var(--c) calc(var(--p) * 1%), rgba(255, 255, 255, 0.14) 0);
 }
 .gauge-inner {
-    width: 116px; height: 116px; border-radius: 50%; background: #121a30;
+    width: 118px; height: 118px; border-radius: 50%; background: var(--navy);
     display: flex; flex-direction: column; align-items: center; justify-content: center;
 }
-.gauge-val { font-size: 2rem; font-weight: 800; color: #fff; line-height: 1; }
-.gauge-lbl { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; }
+.gauge-val { font-family: var(--display); font-size: 2.8rem; color: #fff; line-height: 0.95; }
+.gauge-lbl { font-size: 0.62rem; color: #b9c6e6; text-transform: uppercase; letter-spacing: 0.12em; margin-top: 3px; }
 .badge {
-    display: inline-block; padding: 4px 12px; border-radius: 999px; font-size: 0.78rem; font-weight: 700;
-    color: #0b1020; background: var(--accent);
+    display: inline-block; padding: 4px 14px; border-radius: 999px; font-size: 0.74rem; font-weight: 700;
+    letter-spacing: 0.04em; color: var(--navy); background: var(--accent);
 }
-.verdict-title { font-size: 1.35rem; font-weight: 800; color: #fff; margin: 10px 0 4px; line-height: 1.2; }
-.verdict-sub { color: var(--muted); font-size: 0.92rem; }
-.verdict-sub code { background: rgba(255, 255, 255, 0.08); color: #e2e8f0; padding: 1px 6px; border-radius: 6px; }
-.mini { display: flex; align-items: center; gap: 10px; margin-top: 14px; font-size: 0.85rem; color: var(--muted); }
-.mini span { width: 78px; }
-.mini b { width: 52px; text-align: right; color: #fff; }
-.track { flex: 1; height: 8px; border-radius: 999px; background: rgba(255, 255, 255, 0.08); overflow: hidden; }
+.verdict-title { font-family: var(--display); font-size: 2.3rem; letter-spacing: 0.03em; color: #fff; margin: 8px 0 2px; line-height: 1; }
+.verdict-sub { color: #c9d4ee; font-size: 0.9rem; }
+.verdict-sub code { background: rgba(255, 255, 255, 0.14); color: #fff; padding: 1px 7px; border-radius: 6px; }
+.mini { display: flex; align-items: center; gap: 10px; margin-top: 16px; font-size: 0.82rem; color: #c9d4ee; }
+.mini span { width: 76px; }
+.mini b { width: 54px; text-align: right; color: #fff; }
+.track { flex: 1; height: 8px; border-radius: 999px; background: rgba(255, 255, 255, 0.14); overflow: hidden; }
 .fill { height: 100%; border-radius: 999px; }
 .action {
-    margin-top: 18px; padding: 12px 14px; border-radius: 12px; font-size: 0.9rem; color: #dbe3f1;
-    background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border);
+    margin-top: 20px; padding: 13px 16px; border-radius: 14px; font-size: 0.88rem; color: #e6ecfb;
+    background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.14);
 }
 .snap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 16px; }
-.snap div { background: rgba(255, 255, 255, 0.04); border-radius: 10px; padding: 8px 10px; }
-.snap small { display: block; color: var(--muted); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.05em; }
-.snap b { color: #fff; font-size: 0.92rem; }
+.snap div { background: rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 9px 11px; }
+.snap small { display: block; color: #b9c6e6; font-size: 0.64rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.snap b { color: #fff; font-size: 0.9rem; font-weight: 600; }
 
 .insight {
-    display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; margin-bottom: 8px;
-    background: var(--panel); border: 1px solid var(--border); border-left: 4px solid var(--lvl);
-    border-radius: 12px; font-size: 0.9rem; color: #dbe3f1;
+    display: flex; gap: 12px; align-items: flex-start; padding: 13px 16px; margin-bottom: 9px;
+    background: var(--card); border: 1px solid var(--border); border-left: 5px solid var(--lvl);
+    border-radius: 14px; font-size: 0.88rem; color: var(--navy);
+    box-shadow: 0 10px 26px -22px rgba(16, 38, 93, 0.6);
 }
-.insight b { color: #fff; }
-.insight .m { color: var(--muted); font-size: 0.84rem; }
+.insight b { color: var(--navy); }
+.insight .m { color: var(--muted); font-size: 0.82rem; }
 
 .placeholder {
-    border: 2px dashed rgba(148, 163, 184, 0.28); border-radius: 20px; padding: 46px 24px; text-align: center;
-    background: rgba(255, 255, 255, 0.02);
+    border: 2px dashed rgba(16, 38, 93, 0.28); border-radius: 24px; padding: 54px 26px; text-align: center;
+    background: rgba(255, 255, 255, 0.6);
 }
-.ph-ico { font-size: 2.6rem; margin-bottom: 8px; }
-.ph-title { font-weight: 700; color: #fff; font-size: 1.1rem; margin-bottom: 6px; }
-.ph-sub { color: var(--muted); font-size: 0.9rem; }
+.ph-ico { font-size: 2.8rem; margin-bottom: 6px; }
+.ph-title { font-family: var(--display); font-size: 1.9rem; letter-spacing: 0.04em; color: var(--navy); margin-bottom: 4px; }
+.ph-sub { color: var(--muted); font-size: 0.88rem; }
 
-/* ---------- Model & insights ---------- */
-.fi-row { display: flex; align-items: center; gap: 12px; margin: 9px 0; font-size: 0.88rem; color: #dbe3f1; }
-.fi-row .nm { width: 210px; flex: none; }
-.fi-row .tr { flex: 1; height: 10px; border-radius: 999px; background: rgba(255, 255, 255, 0.06); overflow: hidden; }
-.fi-row .fl { height: 100%; border-radius: 999px; background: linear-gradient(90deg, #6366f1, #a855f7); }
+/* ---------- Feature importance ---------- */
+.fi-row { display: flex; align-items: center; gap: 14px; margin: 10px 0; font-size: 0.86rem; color: var(--navy); }
+.fi-row .nm { width: 220px; flex: none; font-weight: 500; }
+.fi-row .tr { flex: 1; height: 11px; border-radius: 999px; background: rgba(16, 38, 93, 0.08); overflow: hidden; }
+.fi-row .fl { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--navy), #3a63c8); }
 .fi-row .pc { width: 56px; text-align: right; color: var(--muted); }
 
-/* ---------- Buttons ---------- */
-[data-testid^="stBaseButton-primary"] {
-    background: linear-gradient(135deg, #6366f1, #8b5cf6); border: 0; color: #fff; font-weight: 700;
-    padding: 0.65rem 1rem; border-radius: 12px; box-shadow: 0 8px 22px -8px rgba(99, 102, 241, 0.7);
+/* ---------- Widgets ---------- */
+[data-testid="stMarkdownContainer"], [data-testid="stCaptionContainer"], [data-testid="stAlert"] {
+    font-family: 'Poppins', -apple-system, 'Segoe UI', sans-serif;
 }
-[data-testid^="stBaseButton-primary"]:hover { filter: brightness(1.1); }
+[data-testid="stMain"] [data-testid="stNumberInputContainer"],
+[data-testid="stMain"] [data-testid="stTextInputRootElement"],
+[data-testid="stMain"] [data-baseweb="select"] > div {
+    background: #f1f4f9 !important; border: 1px solid rgba(16, 38, 93, 0.18) !important; border-radius: 10px;
+}
+[data-testid="stMain"] [data-testid="stNumberInputContainer"]:focus-within,
+[data-testid="stMain"] [data-testid="stTextInputRootElement"]:focus-within {
+    border-color: var(--navy); box-shadow: 0 0 0 3px rgba(16, 38, 93, 0.12);
+}
+[data-testid="stAlert"] { border-radius: 14px; }
+[data-testid="stFileUploaderDropzone"] {
+    background: #fff; border: 2px dashed rgba(16, 38, 93, 0.3); border-radius: 18px;
+}
+[data-testid="stMain"] [data-testid="stBaseButton-secondary"],
+[data-testid="stMain"] [data-testid="stDownloadButton"] button {
+    border: 1.5px solid var(--navy); color: var(--navy); border-radius: 12px; font-weight: 600; background: transparent;
+}
+[data-testid="stMain"] [data-testid="stBaseButton-secondary"]:hover,
+[data-testid="stMain"] [data-testid="stDownloadButton"] button:hover { background: var(--navy); color: #fff; }
+[data-testid^="stBaseButton-primary"] {
+    background: linear-gradient(135deg, var(--navy-2), var(--navy)); border: 0; color: #fff; font-weight: 600;
+    letter-spacing: 0.03em; padding: 0.7rem 1rem; border-radius: 12px;
+    box-shadow: 0 14px 28px -14px rgba(16, 38, 93, 0.9);
+}
+[data-testid^="stBaseButton-primary"]:hover { filter: brightness(1.18); color: #fff; }
 </style>
 """,
     unsafe_allow_html=True,
@@ -232,7 +301,8 @@ FEATURE_ALIASES = {
     'Last Interaction': ['last interaction', 'Last Interaction', 'last_interaction', 'LastInteraction', 'interaction']
 }
 
-RISK_COLORS = {"High Risk": "#f87171", "Medium Risk": "#fbbf24", "Low Risk": "#34d399"}
+RISK_COLORS = {"High Risk": "#ff7a7a", "Medium Risk": "#ffc857", "Low Risk": "#4ade9b"}  # on navy
+RISK_COLORS_LIGHT = {"High Risk": "#d64545", "Medium Risk": "#e0a020", "Low Risk": "#1f9d6b"}  # on white
 
 
 @st.cache_resource(show_spinner="Loading prediction models...")
@@ -278,6 +348,16 @@ def load_dataset_summary():
         return int(len(churn)), float(churn.mean() * 100)
     except Exception:
         return None
+
+
+@st.cache_data(show_spinner=False)
+def load_demo_customers():
+    """A random mixed sample of customers (the raw file is sorted, so its first rows are all churners)."""
+    df = pd.read_csv(CLEAN_DATA_PATH)
+    sample = df.sample(60, random_state=11).reset_index(drop=True)
+    sample['CustomerID'] = sample['CustomerID'].astype(int)
+    sample['Name'] = [f"Customer {cid}" for cid in sample['CustomerID']]
+    return sample.drop(columns=['Churn'], errors='ignore')
 
 
 # ---------------------------------------------------------
@@ -415,7 +495,10 @@ def preprocess_and_predict(df_input, trained_model, preprocessor=None):
     # Identify Customer ID column
     id_col = find_column_by_aliases(df, ['CustomerID', 'Customer_ID', 'ID', 'Id', 'id', 'CID'])
     if id_col is not None:
-        id_series = df[id_col].fillna("").astype(str).str.strip()
+        raw_ids = df[id_col]
+        if pd.api.types.is_float_dtype(raw_ids) and raw_ids.dropna().mod(1).eq(0).all():
+            raw_ids = raw_ids.astype("Int64")
+        id_series = raw_ids.fillna("").astype(str).str.strip()
         id_series = id_series.mask(id_series.eq(""), generated_ids)
     else:
         id_series = generated_ids
@@ -538,8 +621,8 @@ def render_result(res):
             f'<div class="gauge-val">{prob:.0f}%</div><div class="gauge-lbl">churn risk</div></div></div>'
         )
         bars = (
-            f'<div class="mini"><span>Churn</span><div class="track"><div class="fill" style="width:{prob:.1f}%;background:#f87171"></div></div><b>{prob:.1f}%</b></div>'
-            f'<div class="mini"><span>Retention</span><div class="track"><div class="fill" style="width:{100 - prob:.1f}%;background:#34d399"></div></div><b>{100 - prob:.1f}%</b></div>'
+            f'<div class="mini"><span>Churn</span><div class="track"><div class="fill" style="width:{prob:.1f}%;background:#ff7a7a"></div></div><b>{prob:.1f}%</b></div>'
+            f'<div class="mini"><span>Retention</span><div class="track"><div class="fill" style="width:{100 - prob:.1f}%;background:#4ade9b"></div></div><b>{100 - prob:.1f}%</b></div>'
         )
     else:
         level = "High Risk" if is_churn else "Low Risk"
@@ -579,7 +662,7 @@ def render_result(res):
 
     md('<div style="height:18px"></div>')
     section("💡", "Risk factors &amp; insights")
-    level_colors = {"warn": "#fbbf24", "info": "#818cf8", "good": "#34d399"}
+    level_colors = {"warn": "#e0a020", "info": "#1b3a82", "good": "#1f9d6b"}
     level_icons = {"warn": "⚠️", "info": "ℹ️", "good": "✨"}
     for lvl, ttl, detail in res["insights"]:
         md(f"""
@@ -641,10 +724,8 @@ if app_mode == "📁 Batch CSV Prediction":
             df_to_predict = pd.read_csv(SAMPLE_CSV_PATH)
             st.info("Loaded demo test dataset with sample customers.")
         elif CLEAN_DATA_PATH.is_file():
-            df_sample = pd.read_csv(CLEAN_DATA_PATH, nrows=50)
-            df_sample['Name'] = [f"Customer {int(cid)}" for cid in df_sample['CustomerID']]
-            df_to_predict = df_sample
-            st.info("Loaded 50 sample customers from dataset.")
+            df_to_predict = load_demo_customers()
+            st.info("Loaded 60 random sample customers from the dataset.")
         else:
             st.error("Demo data is unavailable. Check that the customer dataset is present.")
     elif uploaded_file is not None:
@@ -687,13 +768,13 @@ if app_mode == "📁 Batch CSV Prediction":
 
                 # KPI tiles
                 tiles = [
-                    ("Total customers", f"{total_cust:,}", "analyzed", "#818cf8"),
-                    ("Predicted churn", f"{churn_count:,}", f"{churn_rate:.1f}% of customers", "#f87171"),
-                    ("Predicted retained", f"{retain_count:,}", f"{100 - churn_rate:.1f}% of customers", "#34d399"),
+                    ("Total customers", f"{total_cust:,}", "analyzed", "#10265d"),
+                    ("Predicted churn", f"{churn_count:,}", f"{churn_rate:.1f}% of customers", "#d64545"),
+                    ("Predicted retained", f"{retain_count:,}", f"{100 - churn_rate:.1f}% of customers", "#1f9d6b"),
                 ]
                 if has_probabilities:
                     avg_prob = results_df['Churn Probability (%)'].mean()
-                    tiles.append(("Avg churn probability", f"{avg_prob:.1f}%", "across all customers", "#fbbf24"))
+                    tiles.append(("Avg churn probability", f"{avg_prob:.1f}%", "across all customers", "#d98a0b"))
 
                 for column, (label, value, sub, accent) in zip(st.columns(len(tiles)), tiles):
                     with column:
@@ -712,8 +793,8 @@ if app_mode == "📁 Batch CSV Prediction":
                     for lvl in ["High Risk", "Medium Risk", "Low Risk"]:
                         n = int(counts.get(lvl, 0))
                         pct = n / total_cust * 100 if total_cust else 0
-                        segments += f'<div style="width:{pct:.2f}%;background:{RISK_COLORS[lvl]}"></div>'
-                        legend += f'<span><i style="background:{RISK_COLORS[lvl]}"></i>{lvl}: <b style="color:#fff">{n:,}</b> ({pct:.1f}%)</span>'
+                        segments += f'<div style="width:{pct:.2f}%;background:{RISK_COLORS_LIGHT[lvl]}"></div>'
+                        legend += f'<span><i style="background:{RISK_COLORS_LIGHT[lvl]}"></i>{lvl}: <b>{n:,}</b> ({pct:.1f}%)</span>'
                     md('<div style="height:16px"></div>')
                     md(f"""
                     <div class="panel">
@@ -750,8 +831,8 @@ if app_mode == "📁 Batch CSV Prediction":
                 # Highlight styling (dark-theme friendly)
                 def style_prediction(value):
                     if 'Churn' in str(value):
-                        return 'background-color: rgba(248,113,113,0.18); color: #fca5a5; font-weight: 600;'
-                    return 'background-color: rgba(52,211,153,0.16); color: #6ee7b7; font-weight: 600;'
+                        return 'background-color: #fde8e8; color: #b42318; font-weight: 600;'
+                    return 'background-color: #dcf5ea; color: #067647; font-weight: 600;'
 
                 styled_table = display_df.style.map(style_prediction, subset=['Prediction'])
                 column_config = {}
@@ -823,18 +904,23 @@ elif app_mode == "👤 Single Customer Prediction":
             contract_length = st.radio("Contract length", ["Monthly", "Quarterly", "Annual"], index=2, horizontal=True)
 
             section(3, "Account activity &amp; support")
-            a1, a2, a3 = st.columns(3)
-            with a1:
+            r1a, r1b = st.columns(2)
+            with r1a:
                 tenure = st.number_input("Tenure (months)", min_value=1, max_value=60, value=24, step=1)
-                payment_delay = st.number_input("Payment delay (days)", min_value=0, max_value=30, value=3, step=1)
-            with a2:
-                usage_freq = st.number_input("Usage frequency (times/month)", min_value=1, max_value=30, value=18, step=1)
-                last_interaction = st.number_input("Last interaction (days ago)", min_value=1, max_value=30, value=7, step=1)
-            with a3:
+            with r1b:
+                usage_freq = st.number_input("Usage frequency (per month)", min_value=1, max_value=30, value=18, step=1)
+            r2a, r2b = st.columns(2)
+            with r2a:
                 support_calls = st.number_input("Support calls", min_value=0, max_value=10, value=2, step=1)
+            with r2b:
+                payment_delay = st.number_input("Payment delay (days)", min_value=0, max_value=30, value=3, step=1)
+            r3a, r3b = st.columns(2)
+            with r3a:
+                last_interaction = st.number_input("Last interaction (days ago)", min_value=1, max_value=30, value=7, step=1)
+            with r3b:
                 total_spend = st.number_input("Total spend ($)", min_value=100.0, max_value=1000.0, value=750.0, step=10.0)
 
-            submit_btn = st.form_submit_button("⚡ Predict churn risk", width="stretch", type="primary")
+            submit_btn = st.form_submit_button("Predict churn risk  →", width="stretch", type="primary")
 
     if submit_btn:
         if model is None:
@@ -907,19 +993,19 @@ elif app_mode == "📊 Model & Insights":
         summary = load_dataset_summary()
 
         tiles = [
-            ("Selected model", html.escape(selected_model_name), type(classifier).__name__, "#818cf8"),
-            ("Input features", f"{len(EXPECTED_NUM_COLS) + len(EXPECTED_CAT_COLS)}", f"{len(EXPECTED_NUM_COLS)} numeric · {len(EXPECTED_CAT_COLS)} categorical", "#a78bfa"),
-            ("Probabilities", "Available" if supports_proba else "Not supported", "class 1 = churn", "#34d399" if supports_proba else "#fbbf24"),
+            ("Selected model", html.escape(selected_model_name), type(classifier).__name__, "#10265d"),
+            ("Input features", f"{len(EXPECTED_NUM_COLS) + len(EXPECTED_CAT_COLS)}", f"{len(EXPECTED_NUM_COLS)} numeric · {len(EXPECTED_CAT_COLS)} categorical", "#1b3a82"),
+            ("Probabilities", "Available" if supports_proba else "Not supported", "class 1 = churn", "#1f9d6b" if supports_proba else "#d98a0b"),
         ]
         if summary is not None:
-            tiles.append(("Training data", f"{summary[0]:,}", f"{summary[1]:.1f}% churned", "#fbbf24"))
+            tiles.append(("Training data", f"{summary[0]:,}", f"{summary[1]:.1f}% churned", "#d98a0b"))
 
         for column, (label, value, sub, accent) in zip(st.columns(len(tiles)), tiles):
             with column:
                 md(f"""
                 <div class="kpi" style="--accent:{accent}">
                     <div class="lbl">{label}</div>
-                    <div class="val" style="font-size:1.5rem">{value}</div>
+                    <div class="val" style="font-size:2rem">{value}</div>
                     <div class="sub">{sub}</div>
                 </div>
                 """)
