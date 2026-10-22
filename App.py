@@ -253,6 +253,92 @@ footer { visibility: hidden; }
     box-shadow: 0 14px 28px -14px rgba(16, 38, 93, 0.9);
 }
 [data-testid^="stBaseButton-primary"]:hover { filter: brightness(1.18); color: #fff; }
+
+/* =====================  ANIMATIONS  ===================== */
+@property --p { syntax: '<number>'; inherits: true; initial-value: 0; }
+@property --n { syntax: '<integer>'; inherits: true; initial-value: 0; }
+
+@keyframes pageIn   { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes rise     { from { opacity: 0; transform: translateY(22px) scale(0.97); } to { opacity: 1; transform: none; } }
+@keyframes slideIn  { from { opacity: 0; transform: translateX(26px); } to { opacity: 1; transform: none; } }
+@keyframes slideInL { from { opacity: 0; transform: translateX(-18px); } to { opacity: 1; transform: none; } }
+@keyframes popIn    { 0% { opacity: 0; transform: translateY(18px) scale(0.94); } 60% { transform: translateY(-3px) scale(1.01); } 100% { opacity: 1; transform: none; } }
+@keyframes barGrow  { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes stackIn  { from { clip-path: inset(0 100% 0 0 round 999px); } to { clip-path: inset(0 0 0 0 round 999px); } }
+@keyframes gaugeIn  { from { --p: 0; --n: 0; } }
+@keyframes floaty   { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+@keyframes spin     { to { transform: rotate(360deg); } }
+@keyframes drift    { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-18px, -10px) scale(1.06); } }
+@keyframes shine    { 0% { background-position: 120% 0; } 55%, 100% { background-position: -40% 0; } }
+@keyframes ping     { 0% { box-shadow: 0 0 0 0 var(--accent); } 70%, 100% { box-shadow: 0 0 0 11px transparent; } }
+@keyframes dotPulse { 0% { box-shadow: 0 0 0 0 rgba(74, 222, 155, 0.65); } 70%, 100% { box-shadow: 0 0 0 8px rgba(74, 222, 155, 0); } }
+
+[data-testid="stMain"] .block-container { animation: pageIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+[data-testid="stSidebarContent"] { animation: slideInL 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+
+/* hero */
+.hero::before { animation: spin 70s linear infinite; }
+.hero::after  { animation: drift 9s ease-in-out infinite; }
+.hero-title {
+    background: linear-gradient(100deg, #fff 0%, #fff 40%, #a9c4ff 50%, #fff 60%, #fff 100%);
+    background-size: 250% 100%; -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; animation: shine 5s ease-in-out 0.8s infinite;
+}
+.hero-title .em { -webkit-text-fill-color: initial; }
+.chip { transition: transform 0.2s, background 0.2s; }
+.chip:hover { transform: translateY(-2px); background: rgba(255, 255, 255, 0.2); }
+.brand-logo { animation: floaty 4.5s ease-in-out infinite; }
+.pill-ok .dot { animation: dotPulse 2s ease-out infinite; }
+
+/* titles */
+.page-title, .page-sub { animation: slideInL 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.page-sub { animation-delay: 0.08s; }
+.sec { animation: slideInL 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+
+/* cards */
+.kpi, .panel {
+    animation: rise 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: calc(var(--i, 0) * 110ms);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.kpi:hover, .panel:hover { transform: translateY(-5px); box-shadow: 0 26px 44px -22px rgba(16, 38, 93, 0.55); }
+.stack { animation: stackIn 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.35s both; }
+.fi-row { animation: slideInL 0.45s ease both; animation-delay: calc(var(--i, 0) * 55ms); }
+.fi-row .fl { transform-origin: left; animation: barGrow 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: calc(var(--i, 0) * 55ms + 0.25s); }
+
+/* result */
+.result { animation: popIn 0.75s cubic-bezier(0.2, 0.9, 0.3, 1.1) both; }
+.gauge { animation: gaugeIn 1.4s cubic-bezier(0.2, 0.8, 0.2, 1) 0.25s both; }
+.gauge-val.count::after { counter-reset: num var(--n); content: counter(num) "%"; }
+.badge { animation: ping 2.2s ease-out 1.2s infinite; }
+.mini .fill { transform-origin: left; animation: barGrow 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s both; }
+.action, .snap div { animation: rise 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) 0.6s both; }
+.snap div:nth-child(2) { animation-delay: 0.68s; } .snap div:nth-child(3) { animation-delay: 0.76s; }
+.snap div:nth-child(4) { animation-delay: 0.84s; } .snap div:nth-child(5) { animation-delay: 0.92s; } .snap div:nth-child(6) { animation-delay: 1s; }
+.insight {
+    animation: slideIn 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: calc(var(--i, 0) * 110ms + 0.45s);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.insight:hover { transform: translateX(-5px); box-shadow: 0 16px 30px -20px rgba(16, 38, 93, 0.7); }
+.placeholder { animation: rise 0.6s ease both; }
+.ph-ico { display: inline-block; animation: floaty 3.4s ease-in-out infinite; }
+
+/* buttons */
+[data-testid^="stBaseButton-primary"] {
+    background-size: 220% 100%; transition: transform 0.2s ease, box-shadow 0.2s ease, background-position 0.5s ease, filter 0.2s;
+}
+[data-testid^="stBaseButton-primary"]:hover {
+    transform: translateY(-3px); background-position: 100% 0;
+    box-shadow: 0 20px 34px -14px rgba(16, 38, 93, 0.95);
+}
+[data-testid^="stBaseButton-primary"]:active { transform: translateY(0) scale(0.98); }
+[data-testid="stMain"] [data-testid="stBaseButton-secondary"], [data-testid="stMain"] [data-testid="stDownloadButton"] button,
+[data-testid="stSidebar"] [data-testid^="stBaseButton"] { transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease; }
+[data-testid="stMain"] [data-testid="stBaseButton-secondary"]:hover, [data-testid="stMain"] [data-testid="stDownloadButton"] button:hover,
+[data-testid="stSidebar"] [data-testid^="stBaseButton"]:hover { transform: translateY(-2px); }
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+}
 </style>
 """,
     unsafe_allow_html=True,
@@ -430,7 +516,7 @@ with st.sidebar:
 # ---------------------------------------------------------
 md(f"""
 <div class="hero">
-    <div class="hero-title">🔮 Customer Churn Prediction</div>
+    <div class="hero-title"><span class="em">🔮</span> Customer Churn Prediction</div>
     <div class="hero-sub">Spot customers who are likely to leave, understand why, and act before they do.</div>
     <span class="chip">Model: {html.escape(selected_model_name)}</span>
     <span class="chip">Single &amp; batch predictions</span>
@@ -617,8 +703,8 @@ def render_result(res):
         level = risk_level(prob)
         color = RISK_COLORS[level]
         gauge = (
-            f'<div class="gauge" style="--p:{prob:.1f};--c:{color}"><div class="gauge-inner">'
-            f'<div class="gauge-val">{prob:.0f}%</div><div class="gauge-lbl">churn risk</div></div></div>'
+            f'<div class="gauge" style="--p:{prob:.1f};--n:{prob:.0f};--c:{color}"><div class="gauge-inner">'
+            f'<div class="gauge-val count"></div><div class="gauge-lbl">churn risk</div></div></div>'
         )
         bars = (
             f'<div class="mini"><span>Churn</span><div class="track"><div class="fill" style="width:{prob:.1f}%;background:#ff7a7a"></div></div><b>{prob:.1f}%</b></div>'
@@ -664,9 +750,9 @@ def render_result(res):
     section("💡", "Risk factors &amp; insights")
     level_colors = {"warn": "#e0a020", "info": "#1b3a82", "good": "#1f9d6b"}
     level_icons = {"warn": "⚠️", "info": "ℹ️", "good": "✨"}
-    for lvl, ttl, detail in res["insights"]:
+    for idx, (lvl, ttl, detail) in enumerate(res["insights"]):
         md(f"""
-        <div class="insight" style="--lvl:{level_colors[lvl]}">
+        <div class="insight" style="--lvl:{level_colors[lvl]};--i:{idx}">
             <span>{level_icons[lvl]}</span>
             <div><b>{ttl}</b><div class="m">{detail}</div></div>
         </div>
@@ -776,10 +862,10 @@ if app_mode == "📁 Batch CSV Prediction":
                     avg_prob = results_df['Churn Probability (%)'].mean()
                     tiles.append(("Avg churn probability", f"{avg_prob:.1f}%", "across all customers", "#d98a0b"))
 
-                for column, (label, value, sub, accent) in zip(st.columns(len(tiles)), tiles):
+                for idx, (column, (label, value, sub, accent)) in enumerate(zip(st.columns(len(tiles)), tiles)):
                     with column:
                         md(f"""
-                        <div class="kpi" style="--accent:{accent}">
+                        <div class="kpi" style="--accent:{accent};--i:{idx}">
                             <div class="lbl">{label}</div>
                             <div class="val">{value}</div>
                             <div class="sub">{sub}</div>
@@ -1000,10 +1086,10 @@ elif app_mode == "📊 Model & Insights":
         if summary is not None:
             tiles.append(("Training data", f"{summary[0]:,}", f"{summary[1]:.1f}% churned", "#d98a0b"))
 
-        for column, (label, value, sub, accent) in zip(st.columns(len(tiles)), tiles):
+        for idx, (column, (label, value, sub, accent)) in enumerate(zip(st.columns(len(tiles)), tiles)):
             with column:
                 md(f"""
-                <div class="kpi" style="--accent:{accent}">
+                <div class="kpi" style="--accent:{accent};--i:{idx}">
                     <div class="lbl">{label}</div>
                     <div class="val" style="font-size:2rem">{value}</div>
                     <div class="sub">{sub}</div>
@@ -1016,10 +1102,10 @@ elif app_mode == "📊 Model & Insights":
         if importance:
             top = importance[0][1] or 1.0
             rows = "".join(
-                f'<div class="fi-row"><div class="nm">{html.escape(name)}</div>'
+                f'<div class="fi-row" style="--i:{idx}"><div class="nm">{html.escape(name)}</div>'
                 f'<div class="tr"><div class="fl" style="width:{value / top * 100:.1f}%"></div></div>'
                 f'<div class="pc">{value:.1f}%</div></div>'
-                for name, value in importance
+                for idx, (name, value) in enumerate(importance)
             )
             md(f'<div class="panel">{rows}</div>')
             st.caption("Relative feature importance reported by the model itself, not a verified performance metric.")
