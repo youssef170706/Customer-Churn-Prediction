@@ -5,7 +5,6 @@ import joblib
 import numpy as np
 import pandas as pd
 import streamlit as st
-import streamlit.components.v1 as components
 from xgboost import XGBClassifier
 
 # ---------------------------------------------------------
@@ -113,19 +112,6 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
-
-# Force left-to-right so slider dots aren't mirrored in RTL browser profiles
-components.html("""
-<script>
-  const d = window.parent.document;
-  const fix = () => {
-    d.documentElement.setAttribute('dir', 'ltr');
-    d.body.setAttribute('dir', 'ltr');
-  };
-  fix();
-  new MutationObserver(fix).observe(d.documentElement, {attributes: true, attributeFilter: ['dir']});
-</script>
-""", height=0)
 
 # ---------------------------------------------------------
 # Model Loading & Caching
@@ -560,7 +546,7 @@ elif app_mode == "👤 Single Customer Prediction":
         st.markdown("#### 2. Demographics & Subscription")
         d1, d2, d3, d4 = st.columns(4)
         with d1:
-            age = st.slider("Age", min_value=18, max_value=65, value=35)
+            age = st.number_input("Age", min_value=18, max_value=65, value=35, step=1)
         with d2:
             gender = st.selectbox("Gender", ["Female", "Male"])
         with d3:
@@ -571,14 +557,14 @@ elif app_mode == "👤 Single Customer Prediction":
         st.markdown("#### 3. Account Activity & Support")
         a1, a2, a3 = st.columns(3)
         with a1:
-            tenure = st.slider("Tenure (Months)", min_value=1, max_value=60, value=24)
-            usage_freq = st.slider("Usage Frequency (Times/Month)", min_value=1, max_value=30, value=18)
+            tenure = st.number_input("Tenure (Months)", min_value=1, max_value=60, value=24, step=1)
+            usage_freq = st.number_input("Usage Frequency (Times/Month)", min_value=1, max_value=30, value=18, step=1)
         with a2:
-            support_calls = st.slider("Support Calls", min_value=0, max_value=10, value=2)
-            payment_delay = st.slider("Payment Delay (Days)", min_value=0, max_value=30, value=3)
+            support_calls = st.number_input("Support Calls", min_value=0, max_value=10, value=2, step=1)
+            payment_delay = st.number_input("Payment Delay (Days)", min_value=0, max_value=30, value=3, step=1)
         with a3:
             total_spend = st.number_input("Total Spend ($)", min_value=100.0, max_value=1000.0, value=750.0, step=10.0)
-            last_interaction = st.slider("Last Interaction (Days Ago)", min_value=1, max_value=30, value=7)
+            last_interaction = st.number_input("Last Interaction (Days Ago)", min_value=1, max_value=30, value=7, step=1)
 
         submit_btn = st.form_submit_button("⚡ Predict Churn Risk", use_container_width=True)
 
